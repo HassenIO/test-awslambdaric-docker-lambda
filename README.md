@@ -11,8 +11,16 @@ python3 app.py
 Then in another terminal run the following cURL command:
 
 ```bash
-curl http://127.0.0.1:5050/hello
+curl -X POST http://localhost:5050/greet -H "Content-type: application/json" -d "{\"name\":\"Jon\"}"
 ```
+
+This should return a JSON response like the following:
+
+```text
+{"message": "Hello Jon!"}
+```
+
+If no `name` is provided in the data JSON, it uses the name `anon` as a default.
 
 ## Simulating AWS Lambda locally with Docker
 

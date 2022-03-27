@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import os
 import json
 
@@ -6,13 +6,17 @@ import json
 app = Flask(__name__)
 
 
-def say_hello():
-    return {"message": "Hello World!"}
+def say_hello(name):
+    return {"message": f"Hello {name}!"}
 
 
-@app.route('/hello', methods=['GET'])
+@app.route('/greet', methods=['POST'])
 def hello():
-    return json.dumps(say_hello())
+    content_type = request.headers.get('Content-Type')
+    if content_type != 'application/json':
+        raise RuntimeError(f"Not supported Content-Type={content_type}")
+    name = request.json.get("name", "anon")
+    return json.dumps(say_hello(name))
 
 
 def handler(event, context):

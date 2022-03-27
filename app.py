@@ -6,9 +6,13 @@ import json
 app = Flask(__name__)
 
 
+def say_hello():
+    return {"message": "Hello World!"}
+
+
 @app.route('/hello', methods=['GET'])
 def hello():
-    return json.dumps({"message": "Hello World!"})
+    return json.dumps(say_hello())
 
 
 if __name__ == '__main__':
